@@ -2,6 +2,8 @@ import Service from '@ember/service';
 import ENV from 'app-one/config/environment';
 
 export default class CookieService extends Service {
+  // QUESTION: This is quite tricky to parse and (probably) debug
+  // Did you consider a 3rd party library like https://github.com/simplabs/ember-cookies ?
   getCookie(cname) {
     // Support for testing
     if (ENV.environment === 'test') {
