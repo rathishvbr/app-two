@@ -16,23 +16,30 @@
     @mode={{'view'}}
     @expand={{true}}
   />
-  <div class='pt-3'>
-    {{#let this.model.loadMeTask.value as |user|}}
-      <div class='card' style='width: 18rem;'>
-        <div class='card-body'>
-          <h5 class='card-title'>
-            {{user.name}}
-          </h5>
-          <p class='card-text'>
-            {{user.email}}
-          </p>
-          <p class='card-text'>
-            {{user.bio}}
-          </p>
+
+  {{#if this.model.loadMeTask.isRunning}}
+    <div class='pt-3'>
+      <div class="spinner-border text-primary" role="status"></div>
+    </div>
+  {{else}}
+    <div class='pt-3'>
+      {{#let this.model.loadMeTask.value as |user|}}
+        <div class='card' style='width: 18rem;'>
+          <div class='card-body'>
+            <h5 class='card-title'>
+              {{user.name}}
+            </h5>
+            <p class='card-text'>
+              {{user.email}}
+            </p>
+            <p class='card-text'>
+              {{user.bio}}
+            </p>
+          </div>
         </div>
-      </div>
-    {{/let}}
-  </div>
+      {{/let}}
+    </div>
+  {{/if}}
 
 <div class="pt-3 text-end">
   <button type='button' class='btn btn-outline-secondary' {{on 'click' this.refreshSongsInStore}}>
@@ -41,26 +48,30 @@
 </div>
 
   <div class='py-3'>
-    <ul class='list-group'>
-      <li class='list-group-item active' aria-current='true'>
-        Songs call made by ember-data with token to Mirage
-      </li>
-
-      {{! template-lint-enable deprecated-inline-view-helper }}
-      {{#each this.model.loadSongsTask.value as |song|}}
-        <li class='list-group-item d-flex justify-content-md-between'>
-          <span>
-            {{song.title}}
-          </span>
-          <span>
-            {{song.year}}
-          </span>
-          <span>
-            By: {{song.author}}
-          </span>
+    {{#if this.model.loadSongsTask.isRunning}}
+      <div class="spinner-border text-primary" role="status"></div>
+    {{else}}
+      <ul class='list-group'>
+        <li class='list-group-item active' aria-current='true'>
+          Songs call made by ember-data with token to Mirage
         </li>
-      {{/each}}
-    </ul>
+
+        {{! template-lint-enable deprecated-inline-view-helper }}
+        {{#each this.model.loadSongsTask.value as |song|}}
+          <li class='list-group-item d-flex justify-content-md-between t-song'>
+            <span>
+              {{song.title}}
+            </span>
+            <span>
+              {{song.year}}
+            </span>
+            <span>
+              By: {{song.author}}
+            </span>
+          </li>
+        {{/each}}
+      </ul>
+    {{/if}}
   </div>
 </div>
 

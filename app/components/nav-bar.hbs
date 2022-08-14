@@ -12,12 +12,12 @@
       href='http://one.app.localhost:4200'
       target='_blank'
       rel='noopener noreferrer'
-      class='btn btn-primary me-2'
+      class='btn btn-primary me-2 t-link-to-app-one'
     >
       Open App One
     </a>
 
-    <button type='button' class='btn btn-warning' {{on 'click' this.clearToken}}>
+    <button type='button' class='btn btn-warning t-clear-cookie' {{on 'click' this.clearToken}}>
       Clear cookie
     </button>
     <LinkTo @route='logout' class='btn btn-danger'>

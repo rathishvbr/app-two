@@ -11,7 +11,7 @@ export default class ApplicationAdapter extends JSONAPIAdapter {
 
   handleResponse(status, headers, payload) {
     if (status === '401') {
-        return new UnAthu();
+      return new UnAthu();
     }
     return super.handleResponse(status, headers, payload);
   }

@@ -1,22 +1,32 @@
 export default function () {
-  // These comments are here to help you get started. Feel free to delete them.
-  /*
-    Config (with defaults).
+  // this.urlPrefix = 'http://two.app.localhost:5200';
+  // this.namespace = '/api/v1/';
 
-    Note: these only affect routes defined *after* them!
-  */
-  // this.urlPrefix = '';    // make this `http://localhost:8080`, for example, if your API is on a different server
-  // this.namespace = '';    // make this `/api`, for example, if your API is namespaced
-  // this.timing = 400;      // delay for each request, automatically set to 0 during testing
-  /*
-    Shorthand cheatsheet:
+  // Delay responses to simulate network latency
+  this.timing = 1000;
 
-    this.get('/posts');
-    this.post('/posts');
-    this.get('/posts/:id');
-    this.put('/posts/:id'); // or this.patch
-    this.del('/posts/:id');
-
-    https://www.ember-cli-mirage.com/docs/route-handlers/shorthands
-  */
+  this.get('/songs', (schema, request) => {
+    console.log(
+      'Token print from mirage********: ',
+      request.requestHeaders.Authorization
+    );
+    if (request.requestHeaders.Authorization) {
+      return schema.songs.all();
+    } else {
+      return new Response(401, {}, { errors: ['Not authorized'] });
+    }
+  });
+  this.get('/users/me', () => {
+    return {
+      data: {
+        id: 1,
+        type: 'users',
+        attributes: {
+          name: 'Rathish',
+          email: 'rathishvbr@gmail.com',
+          bio: 'Hi there!',
+        },
+      },
+    };
+  });
 }

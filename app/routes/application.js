@@ -7,7 +7,6 @@ import UnAthu from '../adapters/unauthenticate-error';
 export default class ApplicationRoute extends Route {
   @service store;
   @service cookie;
-  @service ajax;
 
   async beforeModel() {
     await this.cookie.handleAuthentication();
@@ -27,8 +26,7 @@ export default class ApplicationRoute extends Route {
 
   @task({ cancelOn: 'deactivate' })
   *loadMe() {
-    let request = yield this.ajax.request('/users/me');
-    return request.data.attributes;
+    return yield this.store.findRecord('user', 'me');
   }
 
   @action
